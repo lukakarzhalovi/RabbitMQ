@@ -1,0 +1,31 @@
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore Rider and VS Code specific settings
+.idea/
+.vscode/
+
+# Ignore other .NET artifacts
+*.log
+*.vs/
+*.ncrunch*
+_ReSharper*/
+TestResult*/
+Build/
+
+# Ignore NuGet packages (optional if using PackageReference)
+packages/
+*.nupkg
+
+# Ignore global.json lock file
+global.json.lock
+
+# Ignore publish output
+publish/
