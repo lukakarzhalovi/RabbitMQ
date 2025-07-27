@@ -11,17 +11,21 @@ var cnn =  await factory.CreateConnectionAsync(cancellationToken: CancellationTo
 
 var channel =  await cnn.CreateChannelAsync();
 
-var exchangeName = "DemoExchange";
-var routeKey = "demo-route-key";
-var queueName = "DemoQueue";
+const string exchangeName = "DemoExchange";
+const string routeKey = "demo-route-key";
+const string queueName = "DemoQueue";
 
 await channel.ExchangeDeclareAsync(exchangeName, ExchangeType.Direct);
 await channel.QueueDeclareAsync(queueName, false,false,false);
 await channel.QueueBindAsync(queueName, exchangeName, routeKey);
 
 
-var message = Encoding.UTF8.GetBytes("Hello Luka!");
-await channel.BasicPublishAsync(exchangeName,routeKey,message);
+for (var i = 0; i < 60; i++)
+{
+    Thread.Sleep(500); // Simulate some delay between messages
+    var message = Encoding.UTF8.GetBytes($"Message Send {i}");
+    await channel.BasicPublishAsync(exchangeName,routeKey,message);
+}
 
 await channel.CloseAsync();
 await cnn.CloseAsync();
